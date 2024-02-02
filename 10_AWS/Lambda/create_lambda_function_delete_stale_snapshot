@@ -1,0 +1,110 @@
+YT: https://youtu.be/OKYJCHHSWb4
+GH: https://github.com/iam-veeramalla/aws-devops-zero-to-hero/blob/main/day-18/ebs_stale_snapshosts.py
+
+AWS Dashboard
+=============
+Services >> Lambda >> Create lambda function >> 
+Function name: Delete_stale_snapshot
+lang: Python3
+click: Create function>>
+Code: Delete default code and write or upload the code .zip file
+================pythoncode===========
+ import boto3
+
+def lambda_handler(event, context):
+    ec2 = boto3.client('ec2')
+
+    # Get all EBS snapshots
+    response = ec2.describe_snapshots(OwnerIds=['self'])
+
+    # Get all active EC2 instance IDs
+    instances_response = ec2.describe_instances(Filters=[{'Name': 'instance-state-name', 'Values': ['running']}])
+    active_instance_ids = set()
+
+    for reservation in instances_response['Reservations']:
+        for instance in reservation['Instances']:
+            active_instance_ids.add(instance['InstanceId'])
+
+    # Iterate through each snapshot and delete if it's not attached to any volume or the volume is not attached to a running instance
+    for snapshot in response['Snapshots']:
+        snapshot_id = snapshot['SnapshotId']
+        volume_id = snapshot.get('VolumeId')
+
+        if not volume_id:
+            # Delete the snapshot if it's not attached to any volume
+            ec2.delete_snapshot(SnapshotId=snapshot_id)
+            print(f"Deleted EBS snapshot {snapshot_id} as it was not attached to any volume.")
+        else:
+            # Check if the volume still exists
+            try:
+                volume_response = ec2.describe_volumes(VolumeIds=[volume_id])
+                if not volume_response['Volumes'][0]['Attachments']:
+                    ec2.delete_snapshot(SnapshotId=snapshot_id)
+                    print(f"Deleted EBS snapshot {snapshot_id} as it was taken from a volume not attached to any running instance.")
+            except ec2.exceptions.ClientError as e:
+                if e.response['Error']['Code'] == 'InvalidVolume.NotFound':
+                    # The volume associated with the snapshot is not found (it might have been deleted)
+                    ec2.delete_snapshot(SnapshotId=snapshot_id)
+                    print(f"Deleted EBS snapshot {snapshot_id} as its associated volume was not found.")
+
+  =================================================
+save & deploy.
+Test
+--------
+error1:
+  "errorMessage": "An error occurred (UnauthorizedOperation) when calling the DescribeSnapshots operation: You are not authorized to perform this operation."
+ --------Requires IAM snapshot list & delete -------------
+Sol:
+Lamda>> configuration >> permissions >> click: Role name: Cost-optimization-snapshot-role-6mgee58o
+Addpermissions >> Attach policy >>Crate Policy >>
+Select a service: EC2
+Actions allowed
+List
+DescribeSnapshots
+
+Write
+DeleteSnapshot
+Resources;
+all
+next
+
+policy name: cost-optimization-snapshot
+Create policy
+
+IAM ROLE:
+Search &  check: cost-optimization-snapshot
+add permissions(Policy was successfully attached to role.)
+-------
+test
+error-2
+  "errorMessage": "An error occurred (UnauthorizedOperation) when calling the DescribeInstances operation: You are not authorized to perform this operation.",
+sol:-------needs ec2 discribe to check snapshot is attached to EC2-------
+Lamda>> configuration >> permissions >> click: Role name: Cost-optimization-snapshot-role-6mgee58o
+Addpermissions >> Attach policy >>Crate Policy >>
+Select a service: EC2
+Actions allowed
+List
+DescribeInstances
+
+DescribeVolumes
+Resources;
+all
+next
+
+policy name: cost-optimization-snap-ec2-permission
+Create policy
+
+IAM ROLE:
+Search &  check: cost-optimization-snap-ec2-permission
+add permissions(Policy was successfully attached to role.)
+------------Test-----
+status: success
+EC2 Dashboard; We can still see the snapshot is not deleted. because it's attched EC2 java-agent
+Terminate the java-agent EC2 instance
+---------
+Lambda >code >test
+status: Success
+log:
+Deleted EBS snapshot snap-0d5c4d0e6b94a72a0 as its associated volume was not found.
+goto snapshots refresh snap-0d5c4d0e6b94a72a0 would have been deleted. 
+==============================
