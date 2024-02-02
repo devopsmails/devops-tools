@@ -1,0 +1,98 @@
+YT: https://youtu.be/u4XngwbY-O0
+GH: https://github.com/iam-veeramalla/aws-devops-zero-to-hero.git
+
+What is cloud watch?
+
+Amazon CloudWatch monitors your Amazon Web Services (AWS) resources and the applications you run on AWS in real time.
+You can use CloudWatch to collect and track metrics, which are variables you can measure for your resources and applications.
+Key features:
+  Monitering
+  alerting
+  reporting
+  logging
+
+Advantages:
+  Monitering
+  Real-life Metrics(API calls in 1 minute, CPU Utilization in last 30 minutes, Memory status)
+  alerts
+  log-sights
+  Custom Metrics
+  Cost Optimization
+  Scaling
+
+=====================
+Dash Board:
+=====================
+We can a dash board any tipe of metrics
+Create dash board: number>>
+select the service : EX:EC2 >> per-instance >> select the instance & metrics we just want to see the overview >> 
+Click Dash board >> 
+We can see beautiful metics with all the different colours refering to different metric & service
+==========================
+Logging: (Even if we loose the logs of any build of EC2 or any service it'll be tracked here with very exactly clear error sucess note line by line)
+==========
+AWS DASHBOARD >> search cloudwatch >> logs>>
+Log Group: Will show for every action there will be a group created for service with specific action name
+
+================
+Metrics:
+===========
+AWS DASHBOARD >> Metrics >> ALL >> Ec2>> per-instance>>
+select the metrics we want to see: To check the cpu utilization or so .. metrics "Graphically"
+Graphed metrics:
+    ----------
+  We can customize of graph as bar or pie or number ..
+  we can take Avarage for a minute in real time.
+===========
+Alarms:(Sends to notifications via mail or SMS.. to take an action if configured limit is reached)
+=========
+Cloud watch dashboard >> Alarms >> in alarms >> create alarm >> Select metrics >>
+Select the service : ex: ec2 >> per-instance >> 
+We can search metics by service name or with id or cpu utilization of to get notification 
+          or 
+ctrl + f: instance-name or with id>> Select metrics>>:
+  Metric name: CPUUtilization(For what metric i want to get the alarm)
+InstanceId: ###
+Instance name: ###
+realtime: Statistic: Average
+          period: 1
+Threshold type: Static
+Whenever CPUUtilization is...:   Greater/Equal
+than…: 50(number of percentage) >> Click Next
+     -----------
+Alarm state trigger: in alarm
+Send a notification to the following SNS topic: Select existing SNS topic or create new >>
+    topic-name: Ex; DevOps-CPU-Utilizations
+    Email endpoints that will receive the notification…: ##recpient mail address#
+    click: create >>  or select the existing one >>
+    click: next
+  -------------
+Name and description
+Alarm name: High Priority - Java-agent - CPU limit reached
+Alarm description:
+Hi Team,
+Automated mail alarm from CloudWatch
+reason: CPU utilization reached max limit
+service: EC2, Java_agent
+Action: Scaleup the service EC2 CPU.
+CLICK: Next
+ --------------
+Preview the info 
+click: create alarm.
+result: Successfully created alarm High Priority - Java-agent - CPU limit reached.
+But alram will not be seen Because we receive mail in any folder spam or promotions with ""Confirm subscription"" option:
+When click Confirm subscription only we can see an alrm created. 
+Refresh: to see the alarm
+-------------
+To Confirm status
+-------------
+Service Serach: SNS
+Topics >> 
+select: #DevOps-CPU-Utilization
+below The status should be confirmed then only it works
+---------------
+
+
+
+
+
