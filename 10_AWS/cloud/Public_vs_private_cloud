@@ -1,0 +1,47 @@
+YT: https://youtu.be/n6RWhajimZg
+
+What is Public Cloud?
+=====================
+A public cloud is a type of cloud computing service model that provides computing resources, 
+such as virtual machines, storage, networking, and applications, over the internet to multiple customers. 
+In a public cloud, these resources are hosted and managed by a third-party cloud service provider, 
+such as Amazon Web Services (AWS), Microsoft Azure, Google Cloud Platform (GCP), or others. 
+These providers offer their infrastructure and services to organizations and individuals on a ""pay-as-you-go"" basis.
+
+Key characteristics of a public cloud include:
+
+Shared Resources
+Scalability
+Self-Service Provisioning
+Pay-as-You-Go Billing
+Global Reach
+Managed Services
+Accessibility
+ -------------
+
+What is Private Cloud?
+================
+A private cloud is a type of cloud computing environment that is dedicated to a single organization or business entity.
+Unlike a public cloud, where resources are shared among multiple customers, a private cloud is designed to
+provide computing resources, such as virtual machines, storage, and networking, exclusively to the organization that 
+owns and manages it. Private clouds offer many of the same benefits as public clouds,such as scalability and 
+self-service provisioning, but they are deployed within an organization's own data centers or hosted in a third-party
+data center.
+
+Key characteristics of a private cloud include:
+
+Dedicated Resources
+
+Enhanced Security and Control
+
+Customization
+
+Compliance and Regulatory Requirements
+
+Performance and Latency
+
+Isolation
+
+initial Costly and Resource Management
+
+
