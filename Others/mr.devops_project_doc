@@ -1,0 +1,98 @@
+#!/bin/bash
+
+sudo apt update -y
+
+sudo apt upgrade -y 
+
+sudo apt install openjdk-17-jre -y
+
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update -y 
+sudo apt-get install jenkins -y
+cat /var/lib/jenkins/secrets/initialAdminPassword
+
+docker
+
+sudo apt update -y
+
+sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" -y
+
+sudo apt update -y
+
+apt-cache policy docker-ce -y
+
+sudo apt install docker-ce -y
+
+#sudo systemctl status docker
+
+sudo chmod 777 /var/run/docker.sock
+
+sonar
+---
+
+docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
+
+
+cat /var/lib/jenkins/secrets/initialAdminPassword
+
+docker container ls
+-------------
+Config Shared on Jenkins
+----------
+Dashboard >> Manage Jenkins >> System >> Global Pipeline Libraries:
+Library:
+name: java-shared-library(any)
+def version: main(branchname)
+project repo: https://github.com/devopsmails/suresh_shared_jenkins_library.git (Shred-lib-url) >> apply & save
+
+
+
+
+========
+need to do 
+========
+
+Private repo github:
+jenkins agent:
+
+
+======
+
+importing shared lib on jenkins:
+Jenkinsfile:
+@Library('java-shared-library') _
+--
+gitCheckout.groovy
+mvnTest.groovy
+mvn need to be installed on ec2 server:
+---------
+sudo apt update -y
+sudo apt install maven -y
+mvn -version
+--------
+Jenkins
+
+password and username retrival:
+connect to ec2 instance:
+
+cd /val/lib/jenkins
+ls
+cd ./users
+cat users.xml - show the list of users names & password in hashencryption: we can decrypt online
+-----------
+linux:
+packages:
+-------
+sudo dpkg --list - shows the list of packages
+sudo dpkg --list | grep jdk - shows the packages with name jdk
+sudo apt-get purge openjdk-17-jre-headless:amd64 - purge(removes the mentioned package completely)
+-----
+
