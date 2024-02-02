@@ -1,0 +1,106 @@
+YT:   https://youtu.be/bCS9m5RVPyo
+GH:   https://github.com/iam-veeramalla/aws-devops-zero-to-hero/tree/main
+
+
+What is Load Balencer? = Trafic Routing
+=======================
+
+/ A load balancer acts as the “traffic cop” sitting in front of your servers and 
+routing client requests across all servers capable
+of fulfilling those requests in a manner that maximizes speed and 
+capacity utilization and ensures that no one server is overworked, which could degrade performance. \
+
+What is OSI Layers? = Layers in Trafic Routing
+========================
+
+This model is called Open System Interconnection (OSI) 
+because this model allows any two different systems to communicate regardless of their underlying architecture.
+
+Advantages of OSI Model
+--------------
+Determine the required hardware and software to build their network. 
+Understand and communicate the process followed by components communicating across a network. 
+Perform troubleshooting,by identifying which network layer is causing an issue and focusing efforts on that layer.
+
+==============OSI Layers==================
+     +-----------------7-------------------------+
+     | Application Layer                        |
+     | (Protocols: HTTP, FTP, SMTP, etc.)        |==============APP Load Balencer
+     +------------------------------------------+
+                      |
+                      v
+     +------------------6------------------------+
+     | Presentation Layer                       |
+     | (Encryption, Compression, Formatting)     |
+     +------------------------------------------+
+                      |
+                      v
+     +-------------------5-----------------------+
+     | Session Layer                            |
+     | (Session Establishment, Synchronization)  |
+     +------------------------------------------+
+                      |
+                      v
+     +---------------------4---------------------+
+     | Transport Layer                          |
+     | (Segmentation, Flow Control, Error Control)|===================Network Load Balencer
+     +------------------------------------------+
+                      |
+                      v
+     +----------------------3--------------------+
+     | Network Layer                            |
+     | (Routing, Logical Addressing)             |
+     +------------------------------------------+
+                      |
+                      v
+     +----------------------2--------------------+
+     | Data Link Layer                          |
+     | (Framing, MAC Addressing, Error Detection)|
+     +------------------------------------------+
+                      |
+                      v
+     +----------------------1--------------------+
+     | Physical Layer                           |
+     | (Transmission and Reception of Raw Data)  |
+     +------------------------------------------+
+==================================
+                  
+ALB  vs NLB VS GWLB
+
+==================
+ALB (Application Load Balancer), NLB (Network Load Balancer), and GWLB (Gateway Load Balancer) 
+are different types of load balancers offered by Amazon Web Services (AWS). 
+Each has specific use cases based on your application's requirements.
+Here's a brief overview of when to use each type:
+
+**ALB (Application Load Balancer):**====hIGH COST===========
+
+Use ALB when you have multiple HTTP/HTTPS applications running on different port numbers or 
+instances and need to distribute incoming traffic based on application layer information 
+(such as URL paths, hostnames, or HTTP headers). ALB is well-suited for routing requests to microservices and containers.
+
+Use Cases:
+- Routing requests to different backend services based on URL paths or hostnames.
+- Load balancing traffic for containerized applications.
+- Providing support for multiple domains with SSL/TLS termination.
+
+**NLB (Network Load Balancer):**==========LOW COST===========
+
+Use NLB when you need to handle TCP/UDP traffic at the transport layer and require high performance, 
+low latency, and the ability to handle millions of requests per second. 
+NLB is ideal for situations where you need to maintain the source IP address of the client.
+
+Use Cases:
+- Distributing traffic to instances for gaming applications or IoT devices.
+- Handling TCP/UDP traffic where source IP preservation is important.
+- Forwarding traffic directly to instances without modifying the request.
+
+**GWLB (Gateway Load Balancer):**
+
+Use GWLB when you have multiple Amazon VPCs (Virtual Private Clouds) and need to route traffic between them. 
+GWLB is designed to route traffic at the network layer (IP protocol) and can handle high throughput.
+
+Use Cases:
+- Load balancing traffic between multiple VPCs.
+- Distributing traffic across VPCs in a regional or cross-regional setup.
+- Routing traffic between VPCs using IP protocol-based rules.
