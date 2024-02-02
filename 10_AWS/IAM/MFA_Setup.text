@@ -1,0 +1,8 @@
+MFA - Multi Factor Authentication: 
+The primary objective of multi-factor authentication is to reduce the risk of account takeovers and provide additional security for users and their accounts.
+1. User name or password / access key & secret key
+2. External device code:
+
+AWS Dashboard: IAM >> top right : addMFA >> MFA : Assign MFA >> next >> C: Virtual device code >> show QR Scan code: 
+                      On Mobile: Download >> Google Authenticator >> Click on "+" symble, scan the image >> Code will pop up for every minute.
+                      On AWS: Enter 1 code & second code from Google Authenticator >> Activate MFA >> Success. 
