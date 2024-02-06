@@ -7,7 +7,15 @@ https://developer.hashicorp.com/vault/tutorials/getting-started/getting-started-
 What is Hashi Corp Vault ?
 ```
 Open-source secrets management platform by HashiCorp
+    > Secrets written to vaults are encrypted then written to backend storage(in-mem - dev, disk - prod)
+
+    > Backend storage can't  view the secrets values as doesn't have means to decrypt the secrets without vaults
+    > creating secrets via cli can be stored in logs
+    > Best to use ""files"
+
+
 ```
+
 
 Features:
 ```
@@ -32,7 +40,6 @@ Managing secrets for CI/CD pipelines
 Enabling cloud-native security
 Protecting DevOps workflows
 Enforcing compliance with security regulations
-
 ```
 
 

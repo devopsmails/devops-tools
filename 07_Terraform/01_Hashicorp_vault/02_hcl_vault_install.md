@@ -35,44 +35,6 @@ sudo apt update && sudo apt install vault -y
 
 verify
 ```
-vault
+vault       - shows the vault lists
 ```
 
-02.Starting vault dev server:
----------------
-Step 1 : CLI Command for starting the server 
-```
-vault server -dev -dev-listen-address="0.0.0.0:8200"
-
-output:
-------
-Api Address: http://0.0.0.0:8200
-Storage: inmem
-Unseal Key: GsygUy7GSg5LXmh5Ux1eZe02Cb96oI8H/rTLXfBAv1U=
-Root Token: hvs.OaGgvDtehkxsUrLbIcQ2OwO5
-```
-On a dubplicate tab of the same server:
-
-Step 2 : Set VAULT_ADDR by exporting to environment variable 
-```
-export VAULT_ADDR='http://0.0.0.0:8200'
-```
-No need of step 3
-/####.Step 3 : Set Root Token by exporting to environment variable 
-```
-export VAULT_TOKEN="hvs.OaGgvDtehkxsUrLbIcQ2OwO5"(#root token)\.####
-```
-
-Step 4 : Verify the status of vault server by running the command 
-```
-vault status
-```
-
-webbroswer:
-
-```
-vault pub IP:8200 port enabled
-vault web:
-type: Token
-token: hvs.OaGgvDtehkxsUrLbIcQ2OwO5(#Root token) >> Vault UI Dash board
-```

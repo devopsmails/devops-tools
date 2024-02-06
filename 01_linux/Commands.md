@@ -1,3 +1,9 @@
+env_var_linux:
+----
+```
+env                     - lists envs
+env | grep VAULT        - can grep a var
+
 ```
 newgrp #groupname (kubnertes/docker/ubuntu) - Reboots the group info
 sudo mv helmfile /usr/local/bin         - to run from anywhere in the terminal
