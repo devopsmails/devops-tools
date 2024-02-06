@@ -22,6 +22,9 @@ sudo apt  install jq -y
 
 vault kv get -format=json secret/dev | jq -r .data.data.username
     - shows the value if fromat is in Json
-    
+
+vault kv delete secret/dev/username
+    - deletes the key username
+
 
 ```
