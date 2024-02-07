@@ -10,8 +10,8 @@ output:
 ------
 Api Address: http://0.0.0.0:8200
 Storage: inmem
-Unseal Key: rTizXx8miWF7V6YP/Gwh+Gfqp3q9oYbz96pqqS6OAag=
-Root Token: hvs.yVJmqJbYZYdxkHjh2ECyTm0x
+Unseal Key: lMoWHiX+F4T2CGouKBxRedj4x12/w0sCWTQuvSTQJwc=
+Root Token: hvs.iu7spRhiajSuKVhMLKNpIOki
 ```
 On a dubplicate tab of the same server:
 
@@ -21,12 +21,12 @@ Step 2 : Set VAULT_ADDR by exporting to environment variable
 ```
 save Unseal key:
 ```
-echo "rTizXx8miWF7V6YP/Gwh+Gfqp3q9oYbz96pqqS6OAag=" > unseal.key
+echo "lMoWHiX+F4T2CGouKBxRedj4x12/w0sCWTQuvSTQJwc=" > unseal.key
 ```
 
 ####.Step 3 : Set Root Token by exporting to environment variable 
 ```
-export VAULT_DEV_ROOT_TOKEN_ID="hvs.yVJmqJbYZYdxkHjh2ECyTm0x"(#root token)\.####
+export VAULT_DEV_ROOT_TOKEN_ID="hvs.iu7spRhiajSuKVhMLKNpIOki"(#root token)\.####
 ```
 
 Step 4 : Verify the status of vault server by running the command 
