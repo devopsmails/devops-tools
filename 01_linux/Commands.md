@@ -55,6 +55,7 @@ top - What are the processors running, causing more usage of memory..
 
 process:
 -------
+ps aux | grep 8200      - lists all process connects to port 8200
 ps -df - lists all the running process in a running format
 ps -df | grep "amazon or ###" - lists only related to amazon
 
