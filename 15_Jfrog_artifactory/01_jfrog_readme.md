@@ -20,6 +20,7 @@ AWS code artifactory
 What is Jfrog Artifactory?
 ```
 JFrog Artifactory is a universal artifact repository manager developed by JFrog. 
+    > Helps with versioning for rollback when needed
 It acts as a central hub for storing, managing, and distributing various software artifacts used throughout the development process. 
 It is a secure library for all software building blocks.
 ```
