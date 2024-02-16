@@ -1,3 +1,9 @@
+apt
+```
+sudo apt/apt-get <package name> - install packages
+sudo apt/apt-get remove <package name> - removes the packages
+```
+
 env_var_linux:
 ----
 ```
