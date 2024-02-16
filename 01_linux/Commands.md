@@ -1,3 +1,9 @@
+bash script execution:
+```
+sudo bash artifactory.sh    - executes
+./ artifactory.sh           -          
+```
+
 apt
 ```
 sudo apt/apt-get <package name> - install packages
