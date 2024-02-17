@@ -31,4 +31,17 @@ Provide secure access:
 Automate workflows: CI/CD
 Scale to your needs: Handle large volume of artificats 
 ```
+Types Jforg Artifactory storing?
 
+```
+1.Local Repository
+    Phiscically resides on the same machines 
+    Accessable with in artifactory instance
+2.Remote Repository
+    Located on a separate machine, potentially another Artifactory instance.
+    You cannot directly deploy or modify artifacts; you configure Artifactory to act as a cache or proxy for the remote repository.
+     Useful for sharing artifacts externally,
+3.Virtual Repository
+    Not a physical location; it's a logical entity.
+    Accessed through a single URL, hiding the complexity of the underlying repositories.
+```
