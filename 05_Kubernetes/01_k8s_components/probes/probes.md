@@ -1,3 +1,4 @@
+```
 Probes:
 By regularly performing health checks on your containers, probes help ensure only healthy pods are serving traffic and unhealthy ones are quickly restarted or scaled down.
 features:
@@ -36,3 +37,4 @@ spec:
           periodSeconds: 10
           successThreshold: 1
           failureThreshold: 3
+```
