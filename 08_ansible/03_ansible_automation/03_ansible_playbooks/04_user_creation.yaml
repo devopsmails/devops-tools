@@ -1,0 +1,19 @@
+---
+- name: Creating a new user
+  hosts: all
+  become: yes
+  vars:
+    groupname: "test-dev"
+  vars_files:
+    users.txt
+  tasks:
+    - name: Creating group name
+      group:
+        name: "{{ groupname }}"
+        state: present
+    - name: Creating a new user
+      ansible.builtin.user:
+        name: "{{ username }}"
+        password: "{{ password }}"
+        state: present
+        group: "{{ groupname }}"

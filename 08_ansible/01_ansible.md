@@ -72,7 +72,7 @@ on Target server:
 ```
 cd /home/ubuntu/.ssh/
 ls
-vi authvi authorized_keys
+vi authorized_keys
 (take one line gap if any other keys are there and paste ansible id_rsa.pub key and save)
 
 ```
@@ -83,8 +83,9 @@ ssh 172.31.22.76(target Private ip)|
 yes
 Then it ssh into tartget server
 exit
-vi inventory (paste target private ip)
 
+vi inventory (paste target private ip)
+----------
 [web_servers]
 172.31.22.76
 
