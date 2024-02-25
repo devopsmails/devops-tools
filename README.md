@@ -1,4 +1,4 @@
-What is DevOps?
+1.What is DevOps?
 ----------
 DevOps  is methodology to make faster High Quality delivery with the disired code Quality parameters, testing, Complete automation and Monitering. 
 
