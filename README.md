@@ -4,7 +4,8 @@ Waterfall method:
 -----------
 Waterfall follows a sequential approach where each phase of the software development lifecycle (requirements, design, implementation, testing, deployment, maintenance) is completed one after the other.
 
-![image](https://github.com/devopsmails/devops-tools/assets/119680288/dd137aeb-2115-4e67-80c2-123e40605531)
+
+![0f18bb9c-e98a-4818-9a27-55ed0c63a725](https://github.com/devopsmails/devops-tools/assets/119680288/1f0104ae-9216-4764-a44d-079a8c81416e)
 
 Strengths: 
     Clear requirements, good documentation, predictable outcomes.
@@ -16,7 +17,8 @@ Agile Method:
 ```
 Breaks down work into smaller, time-boxed cycles called "sprints" (typically 1-4 weeks). Teams work on features in each sprint, gather feedback, and adapt based on learnings.
 
-![image](https://github.com/devopsmails/devops-tools/assets/119680288/1391d9d0-6c6f-415f-8143-2ddd8f3c66ea)
+![image](https://github.com/devopsmails/devops-tools/assets/119680288/8eab9be2-f9b1-4f37-8a46-852ad87c4ce2)
+
 
 Strengths: 
     Adaptable to changing requirements, promotes continuous improvement, and emphasizes collaboration and communication.
