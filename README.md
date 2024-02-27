@@ -10,7 +10,8 @@ Strengths:
 Weaknesses: 
     Inflexible, difficult changes, limited feedback loops.
 ```
-![image](https://github.com/devopsmails/devops-tools/assets/119680288/ded69b67-69d8-4029-8881-08d37fa099d8)
+![5-Stages-of-the-Waterfall-Model](https://github.com/devopsmails/devops-tools/assets/119680288/026bb668-b535-400b-a60f-8485ece9f8cd)
+
 
 Agile Method:
 ```
