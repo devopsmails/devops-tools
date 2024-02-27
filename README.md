@@ -4,7 +4,8 @@ Waterfall method:
 -----------
 Waterfall follows a sequential approach where each phase of the software development lifecycle (requirements, design, implementation, testing, deployment, maintenance) is completed one after the other.
 
-![image](https://github.com/devopsmails/devops-tools/assets/119680288/631bd4fc-fa94-4c22-825b-e46a6af75084)
+
+![Waterfall-Model](https://github.com/devopsmails/devops-tools/assets/119680288/984fc993-b9ef-41ca-8a48-ef019f2e8d84)
 
 
 Strengths: 
