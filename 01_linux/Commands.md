@@ -96,6 +96,7 @@ ps -df |grep "amazon" | awk -F " " '{print $1}'    - print all the process name 
 Logfiles:
 --------
 cat /var/log/syslog | grep "error" - shows only the log files filterd with error from syslog
+tail -3000 /var/log/cloud-init-output.log   - shows while server initialized scripts.
 
 curl: to Retrive the info from internet or URL & doesn't save
 --
