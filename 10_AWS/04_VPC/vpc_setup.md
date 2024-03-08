@@ -97,29 +97,104 @@ A Bastion Host (or a jump server) is a dedicated computer used to access infrast
 
 Bastian Host setup?  
   
-EC2 Dash Board >> Create instance >>   
-> name: Bastian Host  
-  ami: ubuntu  
-  instance type: t2.micro  
-  key pair: #key1  
-  netowrk:  
-  > VPC:#gabby-prod-vpc   
-    auto assign public IP: enable  
-    create new SG Group:   
-      check: ssh(must)
-click: Launch instance  
-----------
-COPY:  
---
-Secure Copy from local to remote server:  
-scp  -i /Users/sures/Downloads/key1.pem /Users/sures/Downloads/key1.pem ubuntu@54.234.208.15:/home/ubuntu  
-    (Key must be as chomod 0600 #key.pem)
+1.VPC CREATE
+=============
+AWS >> VPC >> Create VPC:
+  VPC name: gabby-dev-vpc
+  cidr: 10.0.0.0/16 >> Create VPC = 65256
 
-SSH:  
----  
-ssh -i #key.pem ubuntu@#publicip   
-ls (make sure key.pem is copied)  
-ssh -i #key.pem ubuntu@#Private ip   
+2. Internet gateway creation
+=======================
+vpc >> igw create >> name: gabby-dev-igw >> Create IGW
+
+  Attach IGW with VPC
+  ===================
+  VPC >> igw >> gabby-dev-pc id >> Actions >> Attach vpc >> Avail vpcs : 
+        Select: gabby-dev-vpc >> Attach internet gateway
+
+3.Create Public & private subnets
+===============================
+vpc >> subnets >> create subnets >> 
+  vpc's: gabby-dev-vpc-id
+  sunet settings >> 
+    sunet1 >> 
+      Subnet name: gabby-dev-pubsubnet-1a
+      Availability Zone: ap-south-1a
+      IPv4 VPC CIDR block: 10.0.1.0/24 >> add new subnet
+    sunet2 >> 
+      Subnet name: gabby-dev-privatesubnet-1b
+      Availability Zone: ap-south-1b
+      IPv4 VPC CIDR block: 10.0.2.0/24 >> create sub
+
+4.Route Table Creation
+=====================
+vpc >> route tables >> Route table settings
+    Name: gabby-dev-pub-subnet-rt
+    VPC: gabby-dev-vpc-id >> create route table
+      Subnets association>>edit subnet associations >>
+        select public subnet id >> Save association
+  
+  Route table associate with IGW(route table should have internet access)
+  =============================
+  select route gabby-dev-pubsubnet-rt id>> route >>
+    Destination: 0.0.0.0/0 (anyip range can acess)
+    Target: igw >> gabby-dev-igw >> save changes
+
+5.Create Private route table with Private subnet association without internet access
+==================================================================================
+vpc >> route tables >> Route table settings
+    Name: gabby-dev-private-rt
+    VPC: gabby-dev-vpc-id >> create route table
+      Subnets association>> edit subnet associations >>
+        select private subnet id >> Save association
+      **no route IGW as it's private not allwing direct intenet access
+      ** only it can access through VPC range internally
+
+6.Create Bastion instance on public subnet
+=======================================
+AWS >> EC2 >> Launch an instance :
+  Name: gabby-dev-pub-bastian-ec2
+  Ubuntu: freetier
+  Instance type : t2.micro
+  Key pair: aws-login
+  Network settings >>
+    vpc: gabby-dev-vpc
+    subnet: gabby-dev-pub-subnet-1a
+    Auto-assign public IP: Enable
+    security group name: gabby-dev-pub-bastian-ec2-sg
+      description: gabby-dev-pub-bastian-ec2-sg
+    Inbound Security Group Rules:
+      ssh: 
+  Configure storage: 8 GB
+  Number of instances: 1 >> Create instance
+
+7.Create Private ec2 instance in Private subnet with only pub-ec2-range
+===================================
+AWS >> EC2 >> Launch an instance :
+  Name: gabby-dev-private-ec2
+  Ubuntu: freetier
+  Instance type : t2.micro
+  Key pair: aws-login
+  Network settings >>
+    vpc: gabby-dev-vpc
+    subnet: gabby-dev-private-subnet-1b
+    Auto-assign public IP: disabl
+    security group name: gabby-dev-private-ec2-sg
+      description: gabby-dev-private-ec2-sg
+    Inbound Security Group Rules:
+      ssh: with custom range 10.0.1.0/24(public subnet ip range)
+
+  Configure storage: 8 GB
+  Number of instances: 1 >> Create instance
+
+8.ssh into bastion pub ec2
+=========================
+aws >> instance id >> connect >> 
+  go to cmd prompt >> cd aws_login.pem dir
+    ssh -i "aws_login.pem" ubuntu@public_ip>>
+      ask for confirmation : yes
+      We can view public subnet range ip
+    
 
 Deploying a basic application on Private subnets  
 ----
