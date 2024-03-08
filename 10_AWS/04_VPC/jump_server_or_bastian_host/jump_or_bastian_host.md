@@ -1,4 +1,6 @@
 What is Bastion Host or Jump Server?  
+![Bastion_server](https://github.com/devopsmails/devops-tools/assets/119680288/f7ed5448-dfcf-4738-963a-14fc43731025)
+
 ```
 A bastion server, also known as a jump server or jump box
 
