@@ -1,0 +1,1 @@
+502 - Bad gateway   = Give some more time for health checks time for application to be active.
