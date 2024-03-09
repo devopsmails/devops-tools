@@ -47,7 +47,10 @@ vpc >> route tables >> Route table settings
   
   Route table associate with IGW(route table should have internet access)
   =============================
-  select route gabby-dev-pub-subnet-rt id>> route >>
+  select route gabby-dev-pub-subnet-rt id>> edit subnet association >>
+    Available subnets:
+      Select subnets 2 subnets: gabby-dev-pub-subnet-1a & 1b
+  select route gabby-dev-pub-subnet-rt id>> route >> edit route ??
     Destination: 0.0.0.0/0 (anyip range can acess)
     Target: igw >> gabby-dev-igw >> save changes
 
@@ -74,16 +77,19 @@ aws >> ec2 >> Load balancing >> target groups >> Create target group:
 AWS >> EC2 >> LOAD BALANCERS >> CREATE LOAD BALANCERS >> 
 Compare and select load balancer type: Application Load Balancer >> Create
 Create Application Load Balancer >>Basic configuration >>
-  Load balancer name:   
+  Load balancer name:  gabby-dev-alb 
   Scheme: Internet facing
   IP address type: IPv4
   Network mapping:
     VPC: select gabby-dev-vpc
-    Mappings: select 2 subnets: gabby-dev-pub-subnet-1a/1b
+    Mappings: select 2 subnets: gabby-dev-pub-subnet-1a & 1b
 
   Security groups: select gabby-dev-pub-ec2-sg 
   OR 
-  CREATE SG >> SG NAME, SELECT VPC ADD INBOUND RULES CREATE http: anywhere & create sg
+  CREATE SG >> 
+    SG NAME: select gabby-dev-pub-ec2-sg, 
+    SELECT VPC: gabby-dev-vpc
+    ADD INBOUND RULES CREATE http: anywhere & create sg
   Listeners and routing:
     Protocol:http
     port: 8080
@@ -91,8 +97,16 @@ Create Application Load Balancer >>Basic configuration >>
   Review summary once again >> CREATE LOAD BALENCER 
 *** Refresh till Load balancer provisioning is active
 
-7. CREATE LAUNCH TEMPLATE FOR AUTOSCALLING
-===========================================
+
+
+7.CREATE AUTO SCALLING
+========================
+AWS >> EC2 >> CREATE AUTO SCALE GROUP >> Auto Scaling group name:
+  name: gabby-dev-asg
+  Launch template:
+    create Launch template: 
+       CREATE LAUNCH TEMPLATE FOR AUTOSCALLING
+       ====================================
 aws >> ec2 >> launch template >> Create Launch Template:
     Launch template name: gabby-dev-with-docker-apache2-launchtemp
     description: Ec2 will have docker & apache2 
@@ -114,16 +128,10 @@ yes | sudo apt update
 yes | sudo apt upgrade 
 yes | sudo apt install apache2
 echo "<h1>Server Details</h1><p><strong>Hostname: </strong> $(hostname)</p><p><strong>IP address: </strong> $(hostname -I | cut -d "" -f1)</p>" > /var/www/html/index.html
-sudo systemctl restart apache2         
+sudo systemctl restart apache2        
     EBS Volumes:
         SIZE: 8 >> Create launch template
-
-
-8.CREATE AUTO SCALLING
-========================
-AWS >> EC2 >> CREATE AUTO SCALE GROUP >> Auto Scaling group name:
-  name: gabby-dev-asg
-  Launch template: gabby-dev-with-docker-apache2-launchtemp >> next
+gabby-dev-with-docker-apache2-launchtemp >> next
     Network: 
       VPC: select   gabby-dev-vpc
       Availability Zones and subnets: select: ap-south-1a/1b >> next
@@ -134,17 +142,21 @@ AWS >> EC2 >> CREATE AUTO SCALE GROUP >> Auto Scaling group name:
           Existing load balancer target groups: select gabby-dev-alb-tg
     Health checks:
       select: Turn on Elastic Load Balancing health checks
-      Health check grace periodInfo: 20
+      Health check grace periodInfo: 200 ***it should be based on app requirements
   Configure group size and scaling - optional:
     Group size: 
       Desired capacity: 2
+      min: 1
+      max: 3
   Automatic scaling: No scaling policies >> next 
   Notification: >> next
    >> Create auto scalling group >>
 
 *** refresh untill providing capacity is gone
 **** CHECK EC2 >> 2 INSTANCE are provided & running
-*** load balancer >> copy DNS name: search on browser
+*** load balancer >> copy DNS name: search on browser & refresh if it's load balance to another server as well
+**** loadbalencing is equally distributing to both the servers then delete one server & wait for some time. So that auto scalling will create a server to match disered state.
+
 
 
 
