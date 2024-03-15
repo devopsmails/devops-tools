@@ -24,10 +24,7 @@ AWS >> VPC >> Create VPC:
   VPC name: gabby-dev-vpc
   cidr: 10.0.0.0/16 >> Create VPC
 
-2. Internet gateway creation
-=======================
-vpc >> igw create >> name: gabby-dev-igw >> Create IGW
-
+2. c
   Attach IGW with VPC
   ===================
   VPC >> igw >> gabby-dev-pc id >> Actions >> Attach vpc >> Avail vpcs : 
