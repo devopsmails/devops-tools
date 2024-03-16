@@ -154,4 +154,4 @@ terminal :
         Remove nat gateway from Private route table >> route
         ping www.google.com(Now it'll not work)
 
-
+```
