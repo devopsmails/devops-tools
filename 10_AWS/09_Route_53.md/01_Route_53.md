@@ -36,3 +36,76 @@ HOSTED ZONES:
 A hosted zone is a container for the DNS records that define how internet traffic is routed for a specific domain or subdomain. 
 Essentially, a hosted zone is where you manage the DNS records for your domain.
 ```
+CREATE A HOSTED ZONE
+```
+aws >> Route 53 >> Hosted zones >> Create Hosted zones: 
+    name: sridharmaya.com
+    Type: Public hosted zone >> Create hosted zone
+        Creates sridharmaya.com NS & SOA
+            ns-1551.awsdns-01.co.uk.
+            ns-1377.awsdns-44.org.
+            ns-933.awsdns-52.net.
+            ns-304.awsdns-38.com.
+```
+Register a free Domain
+=================
+```
+free domain registration for 1 year at freedomaini.com
+sridharmaya.com >> Search: add >> Checkout:
+copy & paste hosted zone name servers in custom nameserver:
+            ns-1551.awsdns-01.co.uk.
+            ns-1377.awsdns-44.org.
+            ns-933.awsdns-52.net.
+            ns-304.awsdns-38.com.
+            >> signup or login >> place order & confirm order >> Client details.
+
+```
+
+CREATE AN EC2 WITH RUNNING APACHE2 SERVER
+=========================================
+```
+AWS >> EC2 >> Launch an instance :
+  Name: Route53-ec2
+  Ubuntu: 24.04 freetier
+  Instance type : t2.micro
+  Key pair: create kay pair >> gabby-dev-key-pair
+
+  Network settings >>
+    Auto-assign public IP: Enable
+    create security group name: gabby-dev-pub-ec2-sg
+      description: gabby-dev-pub-ec2-sg
+    Inbound Security Group Rules:
+      ssh: 22 & http : 80 anywhere
+
+  Configure storage: 8 GB
+  
+  Advanced details:
+    user data:
+#!/bin/bash
+################
+#installing apache2
+###############
+yes | sudo apt update 
+yes | sudo apt upgrade 
+yes | sudo apt install apache2
+echo "<h1>Server Details</h1><p><strong>Hostname: </strong> $(hostname)</p><p><strong>IP address: </strong> $(hostname -I | cut -d "" -f1)</p>" > /var/www/html/index.html
+sudo systemctl restart apache2
+
+  Number of instances: 1 >> Create instance
+
+*** once the instance status checks are passed >> ipv4 ip on browser we can get private ip on web page
+```
+CREATING A-RECORD FOR sridharmaya.com USING """SIMPLE ROUTING POLICY"""
+(A-RECORD = ROUTING TRAFIC TO AWS EC2 IPV4 IP)
+====================
+```
+AWS >> Route 53 >> Hosted zones >>  sridharmaya.com >> Create record >>
+Quick create record:
+    Record name: Empty(As we point main domain not the sub domain)
+    Record type: A- Routes Traffic to an IPv4 address and some AWS resources
+    Value: ec2 pub ip: 43.205.143.213
+    TTL Seconds: 10(quick testing)
+    Routing policy: Simple routing >> Create Record >> Show status >>
+
+```
+
