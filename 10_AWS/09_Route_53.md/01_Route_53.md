@@ -36,6 +36,12 @@ HOSTED ZONES:
 A hosted zone is a container for the DNS records that define how internet traffic is routed for a specific domain or subdomain. 
 Essentially, a hosted zone is where you manage the DNS records for your domain.
 ```
+IMAGE:
+```
+                                                     ===============aws============
+USER >> www.sridharmaya.com >>godaddy or freedomaini >> route53 ns >> A record >> ec2
+                                                     ===============aws============
+```
 CREATE A HOSTED ZONE
 ```
 aws >> Route 53 >> Hosted zones >> Create Hosted zones: 
@@ -108,4 +114,8 @@ Quick create record:
     Routing policy: Simple routing >> Create Record >> Show status >>
 
 ```
-
+*** Issues & Best practices with simple routing
+1. When EC2 instance is changed or restarted. It'll not route the trafic as it's connected with """Static ip address"""
+2. Best practice is to use """Load Balancer"""
+3. No hard coding ip address
+```
