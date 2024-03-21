@@ -104,25 +104,25 @@ aws >> ec2 >> Load balancing >> target groups >> Create target group:
           Available instances: select: gabby-dev-pub-ec2-1a,gabby-dev-pub-ec2-1b >>
           include as pending below >> Create target group >>
 
-7.APPLICATION LOAD BALANCER CREATION
-=====================================
-AWS >> EC2 >> LOAD BALANCERS >> CREATE LOAD BALANCERS >> 
-Compare and select load balancer type: Application Load Balancer >> Create
-Create Application Load Balancer >>Basic configuration >>
-  Load balancer name: gabby-dev-alb
-  Scheme: Internet facing
-  IP address type: IPv4
-  Network mapping:
-    VPC: select gabby-dev-vpc
-    Mappings: select 2 subnets: gabby-dev-pub-subnet-1a/1b
-  Security groups: select gabby-dev-pub-ec2-sg
-  Listeners and routing:
-    Protocol:http
-    port: 8080
-    select a target group: gabby-dev-alb-tg
-  Review summary once again >> CREATE LOAD BALENCER 
-  ***go to load balancer >> Wait for some time to complete provisioning & to become active
-  *** select load balancer >> details >> copy : DNS name: gabby-dev-alb-294487175.ap-south-1.elb.amazonaws.com 
+  7.APPLICATION LOAD BALANCER CREATION
+  =====================================
+  AWS >> EC2 >> LOAD BALANCERS >> CREATE LOAD BALANCERS >> 
+  Compare and select load balancer type: Application Load Balancer >> Create
+  Create Application Load Balancer >>Basic configuration >>
+    Load balancer name: gabby-dev-alb
+    Scheme: Internet facing
+    IP address type: IPv4
+    Network mapping:
+      VPC: select gabby-dev-vpc
+      Mappings: select 2 subnets: gabby-dev-pub-subnet-1a/1b
+    Security groups: select gabby-dev-pub-ec2-sg
+    Listeners and routing:
+      Protocol:http
+      port: 8080
+      select a target group: gabby-dev-alb-tg
+    Review summary once again >> CREATE LOAD BALENCER 
+    ***go to load balancer >> Wait for some time to complete provisioning & to become active
+    *** select load balancer >> details >> copy : DNS name: gabby-dev-alb-294487175.ap-south-1.elb.amazonaws.com 
   *** >> paste on browser new tab search>> """"refresh to view the changing traffic one instance to another  """
 
   
