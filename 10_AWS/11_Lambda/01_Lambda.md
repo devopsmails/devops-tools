@@ -11,6 +11,9 @@ monitoring fleet health, deploying and running your code, and monitoring and log
  
 Advantages:  
 ------  
+No Server setup
+No start or stop
+
 Pay as you use  
 pay per time used  
 Cost Optimization  

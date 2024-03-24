@@ -39,11 +39,11 @@ vpc >> subnets >> create subnets >>
   vpc's: gabby-dev-vpc-id
   sunet settings >> 
     sunet1 >> 
-      Subnet name: gabby-dev-pub-subnet-1a
+      Subnet name: gabby-dev-pub-subnet-1-1a
       Availability Zone: ap-south-1a
       IPv4 VPC CIDR block: 10.0.1.0/24 >> add new subnet
 subnet2 >> 
-      Subnet name: gabby-dev-pub-subnet-1b
+      Subnet name: gabby-dev-pub-subnet-1-1b
       Availability Zone: ap-south-1b
       IPv4 VPC CIDR block: 10.0.2.0/24 >> add new subnet
 
@@ -61,7 +61,7 @@ vpc >> igw create >> name: gabby-dev-igw >> Create IGW
 Public Route Table creation:
 ==========================
 vpc >> route tables >> Route table settings
-    Name: gabby-dev-pub-subnet-rt
+    Name: gabby-dev-pub-rt
     VPC: gabby-dev-vpc-id >> create route table
       Subnets association>>edit subnet associations >>
         select both public subnet ids >> Save association
@@ -104,6 +104,8 @@ echo "<h1>Server Details</h1><p><strong>Hostname: </strong> $(hostname)</p><p><s
 sudo systemctl restart apache2
 
   Number of instances: 1 >> Create instance
+**** Min atleast 10 minutes should wait after all the status chcecks have passed
+**** pub ip: 3.110.207.103 on browser it'll show the private ip of that server as result.
 
 6.CREATE TARGET GROUPS(instances will be attached)
 =====================
@@ -147,7 +149,12 @@ Create Application Load Balancer >>Basic configuration >>
   ***go to load balancer >> Wait for some time to complete provisioning & to become active
   *** select load balancer >> details >> copy : DNS name: gabby-dev-alb-294487175.ap-south-1.elb.amazonaws.com 
 ```
-8.CREATE A-RECORD USING AWS ROUTE-53 & ATTCHED WITH LOAD BALANCER
+8.Created Hosted zone for binduvamsam.com
+=================================
+```
+copy the same ns to dns provider custom ns place
+```
+CREATE A-RECORD USING AWS ROUTE-53 & ATTCHED WITH LOAD BALANCER
 =========================================================
 ```
 AWS >> Route 53 >> Hosted zones >>  binduvamsam.com >> Create record >>
@@ -162,6 +169,60 @@ Quick create record:
 
 
     Routing policy: Simple routing >> Create Record >> Show status >>
-**** Once the status is """INSYNC""" Copy the DNS name(sridharmaya.com) on browser & we can see it shows the private ip of the ec2 instance.
+**** Once the status is """INSYNC""" Copy the DNS name(binduvamsam.com) on browser & we can see it shows the private ip of the ec2 instance.
 ```
+9.AWS CERTIFICATE MANAGER SETUP
+==============================
+```
+AWS >> AWS CERTIFICATE MANAGER >> request certificates >> 
+  Certificate type:Request a public certificate(As it's public faced app) >> next
+Domain names: 
+  Fully qualified domain name: binduvamsam.com
+  Validation method: DNS validation 
+  Key algorithm: RSA 2048
+*** Refresh certificates: shows status:  Pending validation
 
+CREATING CERTIFICATE RECORD IN ROUTE 53
+================================
+Click on certificate >> Create Record in Route 53 >> Create Records
+
+Route 53 >> refresh to see the Certificate Record(CNAME)in records list
+Validate: Copy the CNAME ONLY ID (_1c14ce9d539f5006a50fee5db5e97c31 ) 
+  find on certificate page. it shows under CNAME section
+
+**** Should refresh certificate staus to active
+
+*** Load balancer is still has only for http. But now should open for https
+ADD NEW LISTER FOR LOAD BALANCER
+===========================
+AWS >> LOAD BALANCER >> gabby-dev-alb >> Add listner >>
+  Listener configuration: 
+    Protocol: https : 443
+    Routing actions: Forward to target groups
+    Target group: gabby-dev-tg
+    Secure listener settings:
+      Default SSL/TLS server certificate: From ACM
+      Certificate (from ACM): Select binduvamsam.com certificate >> Add
+
+OPEN THE SECUITY GROUP FOR HTTPS IN LOAD BALANCER
+============================================
+AWS >> LOAD BALANCER >> gabby-dev-alb >> SECUITY >> Click sg: gabby-dev-pub-ec2-sg
+  add inbound rules:
+    https; 443 anywhere from ipv4 >> save rules
+
+**** try accessing http://binduvamsam.com
+**** try accessing https://binduvamsam.com
+
+Redirect UNSECURED HTTP REQUEST TO SECURED HTTPS
+==============================================
+EC2 >> Load balancers >> gabby-dev-alb >> HTTP:80 listener>> defualt >> Edit listener:
+  Routing actions: Redirect to URL
+  Protocol: https : 443
+  Status code: 301- permanently moved >> Save changes
+
+*** Try accessing http://binduvamsam.com on web but still goes to https://binduvamsam.com
+
+
+
+
+```
