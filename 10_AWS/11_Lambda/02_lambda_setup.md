@@ -35,4 +35,4 @@ Deploy >> Test >> Configure test event:
 }
   >> save 
 ```
-Test >> We can see the expected response & function logs in function results
+Test >> We can see the expected response & function logs in ""function results""
