@@ -118,31 +118,12 @@ aws >> ec2 >> Load balancing >> target groups >> Create target group:
     Security groups: select gabby-dev-pub-ec2-sg
     Listeners and routing:
       Protocol:http
-      port: 8080
+      port: 80
       select a target group: gabby-dev-alb-tg
     Review summary once again >> CREATE LOAD BALENCER 
     ***go to load balancer >> Wait for some time to complete provisioning & to become active
     *** select load balancer >> details >> copy : DNS name: gabby-dev-alb-294487175.ap-south-1.elb.amazonaws.com 
   *** >> paste on browser new tab search>> """"refresh to view the changing traffic one instance to another  """
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ```
 

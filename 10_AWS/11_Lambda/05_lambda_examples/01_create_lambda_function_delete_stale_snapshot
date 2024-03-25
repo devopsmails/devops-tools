@@ -94,7 +94,7 @@ next
 policy name: cost-optimization-snap-ec2-permission
 Create policy
 
-IAM ROLE:
+IAM ROLE:   
 Search &  check: cost-optimization-snap-ec2-permission
 add permissions(Policy was successfully attached to role.)
 ------------Test-----
