@@ -195,7 +195,6 @@ aws >> ec2 >> Load balancing >> target groups >> Create target group:
 
 7.Network load balancer setup
 =============================
-=====================================
   AWS >> EC2 >> LOAD BALANCERS >> CREATE LOAD BALANCERS >> 
   Compare and select load balancer type: *** Network Load Balancer *** >> Create
   Create Application Load Balancer >>Basic configuration >>
